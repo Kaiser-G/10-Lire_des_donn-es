@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title></title>
+  <link rel="stylesheet" href="" />
+</head>
+
+<body>
+  <button id="btnGo">Go</button>
+  <div id="reponse"></div>
+  <table>
+    <tr>
+      <th>Code</th>
+      <th>Marque</th>
+      <th>Couleur</th>
+      <th>Cylindree</th>
+    </tr>
+    <tr>
+      <td id="code"></td>
+      <td id="marque"></td>
+      <td id="couleur"></td>
+      <td id="cylindree"></td>
+    </tr>
+  </table>
+
+  <!-- <script src="http://code.jquery.com/jquery.js"></script> -->
+  <script src="./Js/init.js"></script>
+  <script src="./Js/ajax_Js_ES6.js"></script>
+  <script>
+    function RetourAjax(reponse) {
+      alert("Retour " + reponse);
+
+
+      // Version améliorée qui gére l'affichage du resultat
+      let myObj = JSON.parse(reponse);
+      document.getElementById("code").innerHTML = myObj.code_voiture;
+      document.getElementById("marque").innerHTML = myObj.marque;
+      document.getElementById("couleur").innerHTML = myObj.couleur;
+      document.getElementById("cylindree").innerHTML = myObj.cylindree;
+    }
+
+    function Erreur_Ajax(reponse) {
+      alert("Erreur Ajax");
+    }
+
+
+
+    // Programme PRINCIPAL
+    window.addEventListener('load', (event) => {
+      let btn = document.getElementById("btnGo");
+
+      btn.addEventListener("click", () => {
+        get(url + "/12", RetourAjax, Erreur_Ajax);
+      }, false);
+    });
+  </script>
+</body>
+
+</html>

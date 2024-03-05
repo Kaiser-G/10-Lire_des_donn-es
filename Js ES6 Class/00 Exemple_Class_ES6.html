@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title></title>
+  <link rel="stylesheet" href="" />
+</head>
+
+<body>
+  <div id="reponse"></div>
+
+  <!-- <script src="http://code.jquery.com/jquery.js"></script> -->
+  <script src="Ajax_class.js"></script>
+  <script src="init_ES6.js"></script>
+  <script>
+
+
+
+    function RetourAjax(reponse) {
+      // // On affiche le resultat
+      // $("#reponse").html(reponse); // Texte brut
+
+      // Version améliorée qui gére l'affichage du resultat
+      let myObj = JSON.parse(reponse);
+      console.log("Success " + myObj);
+
+      var liste = "";
+
+      for (let i = 0; i < myObj.voitures.records.length; i++) {
+        liste +=
+          "Enregistrement No " +
+          i +
+          " ==> " +
+          myObj.voitures.records[i] +
+          "<br/>";
+      }
+      // $("#reponse").html(liste);
+      document.getElementById("reponse").innerHTML = liste;
+    }
+
+    function retourAjout(reponse) {
+      alert("Ajout OK : " + reponse);
+      // Liste des voitures
+      Afficher_Liste();
+    }
+
+    function retourModif(reponse) {
+      alert("Modif OK : " + reponse);
+      // Liste des voitures
+      Afficher_Liste();
+    }
+
+    function retourSuppr(reponse) {
+      alert("Suppr OK : " + reponse);
+      // Liste des voitures
+      Afficher_Liste();
+    }
+
+    function erreur(reponse) {
+      alert("Erreur");
+    }
+
+    function Afficher_Liste(obj) {
+      // Liste des voitures
+      console.log(obj);
+      obj.get(RetourAjax, erreur);
+    }
+
+    // Programme PRINCIPAL
+    window.addEventListener('load', (event) => {
+
+      //////////////////////////////////////
+      // Liste des voiture
+      //////////////////////////////////////
+      Afficher_Liste(Obj_AJAX);
+      ////////////////////////////////////
+      //    Ajout d'une voiture
+      ////////////////////////////////////
+      // let data = {
+      //   marque: "FFF30",
+      //   couleur: "VVVV30",
+      //   cylindree: 130,
+      // };
+      // Obj_AJAX.post(JSON.stringify(data), retourAjout, erreur);
+      // ////////////////////////////////////
+      // Modification de la voiture 179
+      // ////////////////////////////////////
+      // let data2 = {
+      // 	marque: "FFF111",
+      // 	couleur:"VVVV111",
+      // 	cylindree: 174
+      // };
+      // Obj_AJAX.Cle = "179";
+      // Obj_AJAX.put( JSON.stringify(data2), retourModif, erreur);
+      // ////////////////////////////////////
+      // Suppression de la voiture 177
+      // ////////////////////////////////////
+      // Obj_AJAX.Cle = "177";
+      // Obj_AJAX.del(retourSuppr, erreur);
+
+      // Affichage de la voiture N° 1
+      Obj_AJAX.Cle = "1";
+      Obj_AJAX.get(function (reponse) {
+        alert("Success : " + reponse);
+      }, function (reponse) {
+        alert("Erreur Get N° 1 " + reponse);
+      });
+    });
+  </script>
+</body>
+
+</html>
