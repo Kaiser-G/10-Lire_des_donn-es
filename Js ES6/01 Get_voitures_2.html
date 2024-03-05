@@ -4,8 +4,17 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title></title>
+  <title>Exercice 1 (01 Get_voitures_2.html)</title>
   <link rel="stylesheet" href="" />
+
+
+  <style>
+    table,
+    th,
+    td {
+      border: 1px solid black;
+    }
+  </style>
 </head>
 
 <body>
@@ -36,7 +45,7 @@
 
       // Version améliorée qui gére l'affichage du resultat
       let myObj = JSON.parse(reponse);
-      document.getElementById("code").innerHTML = myObj.code_voiture;
+      document.getElementById("code").innerHTML = myObj.code_voiture;//titre de la colonne dans JSON
       document.getElementById("marque").innerHTML = myObj.marque;
       document.getElementById("couleur").innerHTML = myObj.couleur;
       document.getElementById("cylindree").innerHTML = myObj.cylindree;
