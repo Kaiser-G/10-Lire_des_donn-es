@@ -16,7 +16,7 @@
 </head>
 
 <body>
-  <input type="text" id="saisie" placeholder="Saisir un code voiture" />
+
 
   <button id="btnGo">Go</button>
   <div id="message"></div>
@@ -27,37 +27,33 @@
   <script src="./Js class/init_ES6.js"></script>
   <script>
 
-
-
     function RetourAjax(reponse) {
-      alert("retour " + reponse)
+      alert("Retour " + reponse);
+      // Version améliorée qui gére l'affichage du resultat
+      let Liste;
       let myObj = JSON.parse(reponse);
 
-      document.getElementById("reponse").innerHTML = "<table><tr><th>Code</th><th>Marque</th><th>Couleur</th><th>Cylindree</th></tr><tr><td id='code'></td><td id='marque'></td><td id='couleur'></td><td id='cylindree'></td></tr></table>";
+      Liste = "<table><tr><th>Code</th><th>Marque</th><th>Couleur</th><th>Cylindree</th><th>Actions</th></tr>";
 
-      document.getElementById("code").innerHTML = myObj.code_voiture;
-      document.getElementById("marque").innerHTML = myObj.marque;
-      document.getElementById("couleur").innerHTML = myObj.couleur;
-      document.getElementById("cylindree").innerHTML = myObj.cylindree;
+      for (let i in myObj.voitures.records) {
+        Liste += "<tr><td>" + myObj.voitures.records[i][0] + "</td><td>" + myObj.voitures.records[i][1] + "</td><td>" + myObj.voitures.records[i][2] + "</td><td>" + myObj.voitures.records[i][3] + "</td><td><button>Modifier</button><button>Supprimer</button></td></tr>"
+
+      }
+      Liste += "</table>";
+
+      document.getElementById("reponse").innerHTML = Liste;
     }
 
     function ErreurAjax(reponse) {
-      alert("Erreur Ajax");
-      document.getElementById("reponse").innerHTML = "";
+      alert("Erreur Ajax " + reponse);
     }
-
     // Programme PRINCIPAL
     window.addEventListener('load', (event) => {
       let btn = document.getElementById("btnGo");
       btn.addEventListener("click", () => {
-        let cod = document.getElementById("saisie");
-        if (cod.value != "") {
-          let ajax = new Ajax_Es6(url);
-          ajax.Cle = cod.value;
-          ajax.get(RetourAjax, ErreurAjax);
-        } else {
-          alert("Vous devez saisir un code");
-        }
+        let ajax = new Ajax_Es6(url);
+        ajax.get(RetourAjax, ErreurAjax);
+
       }, false);
     });
   </script>

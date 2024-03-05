@@ -44,7 +44,7 @@
       document.getElementById("reponse").innerHTML = Liste;
     }
 
-    function Erreur_Ajax(reponse) {
+    function ErreurAjax(reponse) {
       alert("Erreur Ajax " + reponse);
     }
 
@@ -55,7 +55,7 @@
       let btn = document.getElementById("btnGo");
 
       btn.addEventListener("click", () => {
-        get(url + "/", RetourAjax, Erreur_Ajax)
+        get(url + "/", RetourAjax, ErreurAjax)
       }, false);
     });
   </script>
