@@ -18,8 +18,6 @@
 </head>
 
 <body>
-
-  <input id="saisie" type="text" placeholder="Saisir un code de voiture">
   <button id="btnGo">Go</button>
   <div id="message"></div>
   <div id="reponse"></div>
@@ -32,19 +30,22 @@
     function RetourAjax(reponse) {
       alert("Retour " + reponse);
       // Version améliorée qui gére l'affichage du resultat
+      let Liste;
       let myObj = JSON.parse(reponse);
 
-      document.getElementById("reponse").innerHTML = "<table><tr><th>Code</th><th>Marque</th><th>Couleur</th><th>Cylindree</th></tr><tr><td id='code'></td><td id='marque'></td><td id='couleur'></td><td id='cylindree'></td></tr></table>";
+      Liste = "<table><tr><th>Code</th><th>Marque</th><th>Couleur</th><th>Cylindree</th><th>Actions</th></tr>";
 
-      document.getElementById("code").innerHTML = myObj.code_voiture;//titre de la colonne dans JSON
-      document.getElementById("marque").innerHTML = myObj.marque;
-      document.getElementById("couleur").innerHTML = myObj.couleur;
-      document.getElementById("cylindree").innerHTML = myObj.cylindree;
+      for (let i in myObj.voitures.records) {
+        Liste += "<tr><td>" + myObj.voitures.records[i][0] + "</td><td>" + myObj.voitures.records[i][1] + "</td><td>" + myObj.voitures.records[i][2] + "</td><td>" + myObj.voitures.records[i][3] + "</td><td><button>Modifier</button><button>Supprimer</button></td></tr>"
+
+      }
+      Liste += "</table>";
+
+      document.getElementById("reponse").innerHTML = Liste;
     }
 
     function Erreur_Ajax(reponse) {
       alert("Erreur Ajax " + reponse);
-      document.getElementById("reponse").innerHTML = "";
     }
 
 
@@ -54,13 +55,7 @@
       let btn = document.getElementById("btnGo");
 
       btn.addEventListener("click", () => {
-        let cod = document.getElementById("saisie");
-        alert(cod)
-        if (cod.value != "") {
-          get(url + "/" + cod.value, RetourAjax, Erreur_Ajax);
-        } else {
-          alert("Vous devez saisir un code");
-        }
+        get(url + "/", RetourAjax, Erreur_Ajax)
       }, false);
     });
   </script>
